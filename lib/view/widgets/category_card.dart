@@ -20,7 +20,7 @@ class CategoryCard extends StatelessWidget {
         ),
         color: cardColor,
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

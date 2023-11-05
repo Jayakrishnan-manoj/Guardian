@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:guardian/view/constants/colors.dart';
+import 'package:guardian/view/screens/add_password_screen.dart';
 import 'package:guardian/view/widgets/category_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,7 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
         repeatPauseDuration: Duration(milliseconds: 2000),
         child: FloatingActionButton(
           backgroundColor: buttonColor,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AddPasswordScreen(),
+              ),
+            );
+          },
           child: Icon(
             CupertinoIcons.add,
             color: Colors.white,

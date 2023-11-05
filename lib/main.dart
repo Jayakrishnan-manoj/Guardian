@@ -29,6 +29,10 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: scaffoldBackgroundColor,
           useMaterial3: false,
           fontFamily: "PT Sans",
+          appBarTheme: AppBarTheme().copyWith(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          )
         ),
         home: Builder(builder: (context) {
           switch (authProvider.authState) {
