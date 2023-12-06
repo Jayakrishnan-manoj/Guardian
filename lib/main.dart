@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final AuthProvider authProvider = AuthProvider();
-  await authProvider.AuthenticateUser();
+  // await authProvider.AuthenticateUser();
 
   runApp(MyApp(authProvider: authProvider));
 }

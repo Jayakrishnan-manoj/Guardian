@@ -6,6 +6,9 @@ import 'package:gap/gap.dart';
 import 'package:guardian/view/constants/colors.dart';
 import 'package:guardian/view/screens/add_password_screen.dart';
 import 'package:guardian/view/widgets/category_card.dart';
+import 'package:guardian/view/widgets/custom_dialog.dart';
+
+import '../widgets/mini_category_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,17 +26,21 @@ class _HomeScreenState extends State<HomeScreen> {
         glowColor: buttonColor,
         endRadius: 80,
         duration: Duration(milliseconds: 2000),
-        repeat: true,
-        showTwoGlows: true,
+        repeat: false,
+        showTwoGlows: false,
         repeatPauseDuration: Duration(milliseconds: 2000),
         child: FloatingActionButton(
           backgroundColor: buttonColor,
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => AddPasswordScreen(),
-              ),
+            showDialog(
+              context: context,
+              builder: (context) => CustomDialog(),
             );
+            // Navigator.of(context).push(
+            //   MaterialPageRoute(
+            //     builder: (context) => AddPasswordScreen(),
+            //   ),
+            // );
           },
           child: Icon(
             CupertinoIcons.add,
@@ -46,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(
             vertical: 10.0,
-            horizontal: 5,
+            horizontal: 12,
           ),
           child: Column(
             children: [
@@ -63,40 +70,44 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Row(
                     children: [
-                      CategoryCard(
-                        categoryIcon: FaIcon(
+                      MiniCategoryCard(
+                        onPressed: () {},
+                        icon: const FaIcon(
                           FontAwesomeIcons.globe,
                           color: Colors.white,
                         ),
-                        categoryTitle: "Browser",
+                        title: "Browser",
                       ),
-                      Gap(3),
-                      CategoryCard(
-                        categoryIcon: Icon(
+                      const Gap(15),
+                      MiniCategoryCard(
+                        onPressed: () {},
+                        icon: const Icon(
                           Icons.phone_android,
                           color: Colors.white,
                         ),
-                        categoryTitle: "Social Media",
+                        title: "Social Media",
                       ),
                     ],
                   ),
-                  Gap(3),
+                  const Gap(15),
                   Row(
                     children: [
-                      CategoryCard(
-                        categoryIcon: Icon(
+                      MiniCategoryCard(
+                        onPressed: () {},
+                        icon: const Icon(
                           Icons.wallet,
                           color: Colors.white,
                         ),
-                        categoryTitle: "Payments",
+                        title: "Payments",
                       ),
-                      Gap(3),
-                      CategoryCard(
-                        categoryIcon: Icon(
+                      const Gap(15),
+                      MiniCategoryCard(
+                        onPressed: () {},
+                        icon: const Icon(
                           Icons.category,
                           color: Colors.white,
                         ),
-                        categoryTitle: "Miscellaneous",
+                        title: "Miscellaneous",
                       ),
                     ],
                   ),

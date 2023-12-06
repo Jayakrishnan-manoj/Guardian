@@ -7,20 +7,33 @@ import 'package:guardian/view/constants/colors.dart';
 class CategoryCard extends StatelessWidget {
   final String categoryTitle;
   final Widget categoryIcon;
-  const CategoryCard({super.key, required this.categoryTitle, required this.categoryIcon});
+  const CategoryCard(
+      {super.key, required this.categoryTitle, required this.categoryIcon});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.sizeOf(context).width * 0.483,
       height: MediaQuery.sizeOf(context).height * 0.2,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+      child: Container(
+        decoration:
+            BoxDecoration(borderRadius: BorderRadius.circular(20), boxShadow: [
+          const BoxShadow(
+            color: Color(0xFF2B2E34),
+            offset: Offset(10, 10),
+            blurRadius: 30,
+            spreadRadius: 1,
+          ),
+          BoxShadow(
+            color: Colors.white,
+            offset: Offset(-10, -10),
+            blurRadius: 30,
+            spreadRadius: 1,
+          ),
+        ]),
         color: cardColor,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
