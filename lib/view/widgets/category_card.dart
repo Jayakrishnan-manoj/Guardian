@@ -16,22 +16,22 @@ class CategoryCard extends StatelessWidget {
       width: MediaQuery.sizeOf(context).width * 0.483,
       height: MediaQuery.sizeOf(context).height * 0.2,
       child: Container(
-        decoration:
-            BoxDecoration(borderRadius: BorderRadius.circular(20), boxShadow: [
-          const BoxShadow(
-            color: Color(0xFF2B2E34),
-            offset: Offset(10, 10),
-            blurRadius: 30,
-            spreadRadius: 1,
-          ),
-          BoxShadow(
-            color: Colors.white,
-            offset: Offset(-10, -10),
-            blurRadius: 30,
-            spreadRadius: 1,
-          ),
-        ]),
-        color: cardColor,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+                color: softHighlightColor,
+                offset: Offset(-10, -10),
+                spreadRadius: 0,
+                blurRadius: 10),
+            BoxShadow(
+                color: softShadowColor,
+                offset: Offset(10, 10),
+                spreadRadius: 0,
+                blurRadius: 10),
+          ],
+        ),
+        color: backgroundColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
           child: Column(
