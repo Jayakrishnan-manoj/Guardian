@@ -18,20 +18,9 @@ class CategoryCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-                color: softHighlightColor,
-                offset: Offset(-10, -10),
-                spreadRadius: 0,
-                blurRadius: 10),
-            BoxShadow(
-                color: softShadowColor,
-                offset: Offset(10, 10),
-                spreadRadius: 0,
-                blurRadius: 10),
-          ],
+         
         ),
-        color: backgroundColor,
+        color: tileColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
           child: Column(

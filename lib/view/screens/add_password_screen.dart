@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:guardian/view/constants/colors.dart';
 import 'package:guardian/view/constants/constants.dart';
 
@@ -50,6 +51,15 @@ class _AddPasswordScreenState extends State<AddPasswordScreen> {
             fontSize: 22,
           ),
         ),
+        leading: IconButton(
+          onPressed: () {
+            context.go("/");
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -94,7 +104,7 @@ class _AddPasswordScreenState extends State<AddPasswordScreen> {
                     borderRadius: BorderRadius.circular(
                       15,
                     ),
-                    color: cardColor,
+                    color: tileColor,
                   ),
                 ),
                 dropdownStyleData: DropdownStyleData(
@@ -102,7 +112,7 @@ class _AddPasswordScreenState extends State<AddPasswordScreen> {
                     borderRadius: BorderRadius.circular(
                       15,
                     ),
-                    color: cardColor,
+                    color: tileColor,
                   ),
                 ),
                 value: selectedCategory,
@@ -131,11 +141,11 @@ class _AddPasswordScreenState extends State<AddPasswordScreen> {
                   statesController: MaterialStatesController(),
                   icon: const Icon(Icons.check),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: buttonColor,
+                    //backgroundColor: buttonColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    disabledBackgroundColor: cardColor,
+                    disabledBackgroundColor: tileColor,
                     disabledForegroundColor: Colors.white70,
                   ),
                   label: Text(

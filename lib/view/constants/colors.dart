@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 
-const Color scaffoldBackgroundColor = Color(0xFF32383E);
-const Color cardColor = Color(0xFF27292C);
-const Color buttonColor = Color(0xFF017ff3);
+// const Color scaffoldBackgroundColor = Color(0xFF020407);
+// const Color tileColor = Color(0xFF0A0C15);
 
-const Color backgroundColor = Color(0xFF2c3135);
-Color highlightColor = Colors.white.withOpacity(0.05);
-const Color shadowColor = Colors.black87;
+const Color scaffoldBackgroundColor = Color(0xFFF3EFEC);
+const Color tileColor = Color(0xFFFEFFFE);
+const Color subTextColor = Color(0xFFB2B5B3);
+const Color greenAppColor = Color(0xFF4CC37F);
 
-Color softHighlightColor = highlightColor.withOpacity(0.03);
-Color softShadowColor = shadowColor.withOpacity(0.3);
-
-const Color gradientStart = Color(0xFFf1da95);
-const Color gradientMiddle = Color(0xFFfe948a);
-const Color gradientEnd = Color(0xFFb24fce);

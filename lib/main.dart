@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:guardian/controller/auth_provider.dart';
 import 'package:guardian/view/constants/colors.dart';
+import 'package:guardian/view/screens/add_password_screen.dart';
 import 'package:guardian/view/screens/home_screen.dart';
 import 'package:guardian/view/screens/landing_screen.dart';
 import 'package:provider/provider.dart';
@@ -39,6 +40,10 @@ class MyApp extends StatelessWidget {
           path: "/landing",
           builder: (context, state) => const LandingScreen(),
         ),
+        GoRoute(
+          path: "/add-password",
+          builder: (context, state) => const AddPasswordScreen(),
+        ),
       ],
     );
     return ChangeNotifierProvider.value(
@@ -48,7 +53,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Guardian',
         theme: ThemeData(
-            scaffoldBackgroundColor: backgroundColor,
+            scaffoldBackgroundColor: scaffoldBackgroundColor,
             useMaterial3: false,
             fontFamily: "PT Sans",
             appBarTheme: AppBarTheme().copyWith(

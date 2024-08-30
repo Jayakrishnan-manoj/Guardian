@@ -55,7 +55,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 },
                 icon: const Icon(
                   Icons.fingerprint,
-                  color: buttonColor,
+                  color: tileColor,
                   size: 80,
                 ),
               ),

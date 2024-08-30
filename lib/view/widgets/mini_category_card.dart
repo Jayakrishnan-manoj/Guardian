@@ -21,36 +21,54 @@ class MiniCategoryCard extends StatelessWidget {
       onTap: onPressed,
       child: SizedBox(
         width: MediaQuery.sizeOf(context).width * 0.44,
-        height: MediaQuery.sizeOf(context).height * 0.2,
+        height: MediaQuery.sizeOf(context).height * 0.165,
         child: Container(
           decoration: BoxDecoration(
-              color: cardColor,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                const BoxShadow(
-                  color: Color(0xFF35393F),
-                  offset: Offset(-4, -4),
-                  blurRadius: 30,
-                  spreadRadius: 1,
-                ),
-                BoxShadow(
-                  color: Color(0xFF23262A),
-                  offset: Offset(8, 8),
-                  blurRadius: 30,
-                  spreadRadius: 1,
-                ),
-              ]),
+            color: tileColor,
+            borderRadius: BorderRadius.circular(20),
+          ),
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(15),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              //mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 icon,
-                const Gap(10),
+                const Gap(20),
                 Text(
                   title,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
+                const Gap(5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "32 pass",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: subTextColor, 
+                          width: 1.5
+                        )
+                      ),
+                      child: Icon(
+                        Icons.arrow_forward_rounded,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),

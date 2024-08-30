@@ -16,7 +16,7 @@ class CustomFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
-        fillColor: cardColor,
+        fillColor: tileColor,
         filled: true,
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
