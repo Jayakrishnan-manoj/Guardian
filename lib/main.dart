@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:guardian/controller/auth_provider.dart';
 import 'package:guardian/view/constants/colors.dart';
-import 'package:guardian/view/screens/add_password_screen.dart';
 import 'package:guardian/view/screens/home_screen.dart';
 import 'package:guardian/view/screens/landing_screen.dart';
+import 'package:guardian/view/screens/new_password_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,48 +21,52 @@ void main() async {
 class MyApp extends StatelessWidget {
   final AuthProvider authProvider;
 
-  MyApp({required this.authProvider, Key? key}) : super(key: key);
+  const MyApp({required this.authProvider, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final GoRouter _router = GoRouter(
-      initialLocation: "/",
-      routes: [
-        GoRoute(
-          path: "/",
-          builder: (context, state) {
-            switch (authProvider.authState) {
-              case authStatus.authenticated:
-                return const HomeScreen();
-              default:
-                return const HomeScreen();
-            }
-          },
-        ),
-        GoRoute(
-          path: "/landing",
-          builder: (context, state) => const LandingScreen(),
-        ),
-        GoRoute(
-          path: "/add-password",
-          builder: (context, state) => const AddPasswordScreen(),
-        ),
-      ],
-    );
+    // final GoRouter router = GoRouter(
+    //   initialLocation: "/",
+    //   restorationScopeId: 'router', // Add this line to restore state
+    //   routes: [
+    //     GoRoute(
+    //       path: "/",
+    //       builder: (context, state) {
+    //         switch (authProvider.authState) {
+    //           case authStatus.authenticated:
+    //             return const NewPasswordScreen();
+    //           default:
+    //             return const NewPasswordScreen();
+    //         }
+    //       },
+    //     ),
+    //     GoRoute(
+    //       path: "/landing",
+    //       builder: (context, state) => const LandingScreen(),
+    //     ),
+    //     GoRoute(
+    //       path: "/add-password",
+    //       builder: (context, state) => const NewPasswordScreen(),
+    //     ),
+    //   ],
+    // );
+
     return ChangeNotifierProvider.value(
-      value: authProvider, // Use the existing instance of AuthProvider
-      child: MaterialApp.router(
-        routerConfig: _router,
+      value: authProvider,
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
+
+        home: authProvider.authState == authStatus.authenticated ? HomeScreen() : LandingScreen(),
         title: 'Guardian',
         theme: ThemeData(
-            scaffoldBackgroundColor: scaffoldBackgroundColor,
-            useMaterial3: false,
-            fontFamily: "PT Sans",
-            appBarTheme: AppBarTheme().copyWith(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-            )),
+          scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
+          useMaterial3: false,
+          fontFamily: "PT Sans",
+          appBarTheme: const AppBarTheme().copyWith(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+        ),
       ),
     );
   }

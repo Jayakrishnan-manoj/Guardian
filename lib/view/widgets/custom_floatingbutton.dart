@@ -21,7 +21,7 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
     _rotationAnimation =
         Tween<double>(begin: 0.0, end: isXState ? 0.125 : -0.125)
@@ -54,7 +54,7 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
           child: Container(
             width: 80,
             height: 80,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
                 begin: Alignment.topLeft,

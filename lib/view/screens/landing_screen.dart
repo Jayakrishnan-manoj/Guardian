@@ -41,11 +41,11 @@ class _LandingScreenState extends State<LandingScreen> {
                   try {
                     bool pass = await auth.authenticate(
                         localizedReason: 'Authenticate to continue',
-                        options: AuthenticationOptions(biometricOnly: true));
+                        options: const AuthenticationOptions(biometricOnly: true));
                     if (pass) {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
+                          builder: (context) => const HomeScreen(),
                         ),
                       );
                     }
@@ -55,7 +55,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 },
                 icon: const Icon(
                   Icons.fingerprint,
-                  color: tileColor,
+                  color: AppColors.tileColor,
                   size: 80,
                 ),
               ),

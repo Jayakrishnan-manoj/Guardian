@@ -14,7 +14,7 @@ class AuthProvider extends ChangeNotifier {
     try {
       bool pass = await auth.authenticate(
           localizedReason: 'Authenticate to continue',
-          options: AuthenticationOptions(biometricOnly: true));
+          options: const AuthenticationOptions(biometricOnly: true));
       if (pass) {
         _authStatus = authStatus.authenticated;
         return true;

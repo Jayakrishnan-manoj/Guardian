@@ -24,7 +24,7 @@ class MiniCategoryCard extends StatelessWidget {
         height: MediaQuery.sizeOf(context).height * 0.165,
         child: Container(
           decoration: BoxDecoration(
-            color: tileColor,
+            color: AppColors.tileColor,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
@@ -38,7 +38,7 @@ class MiniCategoryCard extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
@@ -47,7 +47,7 @@ class MiniCategoryCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "32 pass",
                       style: TextStyle(
                         fontSize: 18,
@@ -58,13 +58,13 @@ class MiniCategoryCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: subTextColor, 
+                          color: AppColors.subTextColor, 
                           width: 1.5
                         )
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_forward_rounded,
-                        color: Colors.black,
+                        color: Colors.white,
                       ),
                     ),
                   ],

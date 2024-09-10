@@ -20,26 +20,26 @@ class CategoryCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
          
         ),
-        color: tileColor,
+        color: AppColors.tileColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               categoryIcon,
-              Gap(15),
+              const Gap(15),
               Text(
                 categoryTitle,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 22,
                 ),
               ),
-              Gap(10),
+              const Gap(10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "23 passwords",
                     style: TextStyle(
                       color: Colors.white60,
@@ -47,7 +47,7 @@ class CategoryCard extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       CupertinoIcons.forward,
                       color: Colors.white60,
                     ),

@@ -60,11 +60,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       bottomNavigationBar: SlidingClippedNavBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.tileColor,
         iconSize: 32,
         selectedIndex: selectedIndex,
         onButtonPressed: onButtonPressed,
-        activeColor: greenAppColor,
+        activeColor: AppColors.greenAppColor,
         barItems: [
           BarItem(title: "Home", icon: CupertinoIcons.home),
           BarItem(title: "Generate", icon: CupertinoIcons.wand_stars),
@@ -85,10 +85,10 @@ class HomePage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           "Hello, JayK",
-          style: const TextStyle(
-            color: Colors.black,
+          style: TextStyle(
+            color: Colors.white,
             fontSize: 32,
             fontWeight: FontWeight.w600,
           ),
@@ -97,7 +97,7 @@ class HomePage extends StatelessWidget {
         const Text(
           "Save your passwords easily and securely",
           style: TextStyle(
-            color: subTextColor,
+            color: AppColors.subTextColor,
             fontSize: 16,
           ),
         ),
@@ -113,7 +113,7 @@ class HomePage extends StatelessWidget {
                   icon: const FaIcon(
                     FontAwesomeIcons.globe,
                     size: 35,
-                    color: greenAppColor,
+                    color: Colors.white,
                   ),
                   title: "Browser",
                 ),
@@ -123,7 +123,7 @@ class HomePage extends StatelessWidget {
                   icon: const Icon(
                     size: 35,
                     Icons.phone_android,
-                    color: greenAppColor,
+                    color: Colors.white,
                   ),
                   title: "Social Media",
                 ),
@@ -137,7 +137,7 @@ class HomePage extends StatelessWidget {
                   icon: const Icon(
                     Icons.wallet,
                     size: 35,
-                    color: greenAppColor,
+                    color: Colors.white,
                   ),
                   title: "Payments",
                 ),
@@ -147,7 +147,7 @@ class HomePage extends StatelessWidget {
                   icon: const Icon(
                     Icons.category,
                     size: 35,
-                    color: greenAppColor,
+                    color: Colors.white,
                   ),
                   title: "Miscellaneous",
                 ),
@@ -156,10 +156,10 @@ class HomePage extends StatelessWidget {
           ],
         ),
         const Gap(20),
-        Text(
+        const Text(
           "Saved Passwords",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontWeight: FontWeight.w700,
             fontSize: 22,
           ),

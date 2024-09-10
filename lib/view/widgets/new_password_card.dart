@@ -1,7 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:guardian/view/constants/colors.dart';
+import 'package:guardian/view/screens/new_password_screen.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 
 class NewPasswordCard extends StatelessWidget {
   const NewPasswordCard({super.key});
@@ -12,7 +16,7 @@ class NewPasswordCard extends StatelessWidget {
       width: MediaQuery.sizeOf(context).width,
       //height: 200,
       decoration: BoxDecoration(
-        color: greenAppColor,
+        color: AppColors.tileColor,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Padding(
@@ -55,17 +59,22 @@ class NewPasswordCard extends StatelessWidget {
                     StadiumBorder(),
                   ),
                   backgroundColor: WidgetStatePropertyAll(
-                    Colors.white,
+                    AppColors.greenAppColor,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => NewPasswordScreen(),
+                    ),
+                  );
+                },
                 child: const Text(
                   "Add new +",
                   style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700
-                  ),
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700),
                 ),
               ),
             ),
