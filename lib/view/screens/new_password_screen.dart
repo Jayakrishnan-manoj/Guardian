@@ -1,11 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:guardian/view/constants/colors.dart';
 import 'package:guardian/view/constants/constants.dart';
 import 'package:image_picker/image_picker.dart';

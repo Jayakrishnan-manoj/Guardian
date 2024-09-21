@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:guardian/controller/auth_provider.dart';
+import 'package:guardian/services/encryption_service.dart';
 import 'package:guardian/view/constants/colors.dart';
 import 'package:guardian/view/screens/home_screen.dart';
 import 'package:guardian/view/screens/landing_screen.dart';
@@ -14,7 +15,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final AuthProvider authProvider = AuthProvider();
   //await authProvider.AuthenticateUser();
-
+  final encryptionService = EncryptionService();
+  await encryptionService.init();
   runApp(MyApp(authProvider: authProvider));
 }
 
@@ -55,8 +57,9 @@ class MyApp extends StatelessWidget {
       value: authProvider,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-
-        home: authProvider.authState == authStatus.authenticated ? HomeScreen() : LandingScreen(),
+        home: authProvider.authState == authStatus.authenticated
+            ? const HomeScreen()
+            : const LandingScreen(),
         title: 'Guardian',
         theme: ThemeData(
           scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,

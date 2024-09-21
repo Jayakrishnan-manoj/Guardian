@@ -65,7 +65,7 @@ class NewPasswordCard extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => NewPasswordScreen(),
+                      builder: (context) => const NewPasswordScreen(),
                     ),
                   );
                 },

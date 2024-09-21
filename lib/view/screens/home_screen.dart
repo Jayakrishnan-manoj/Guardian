@@ -1,13 +1,10 @@
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:guardian/view/constants/colors.dart';
 import 'package:guardian/view/screens/generate_password_page.dart';
 import 'package:guardian/view/screens/profile_page.dart';
-import 'package:guardian/view/widgets/custom_floatingbutton.dart';
 import 'package:guardian/view/widgets/new_password_card.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 
