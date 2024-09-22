@@ -1,4 +1,4 @@
-enum Categories { browser, socialMedia, payments, miscellaneous }
+
 
 List<String> connectedAccountsList = [
   "Google",

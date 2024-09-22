@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:guardian/controller/auth_provider.dart';
 import 'package:guardian/services/encryption_service.dart';
@@ -10,6 +11,9 @@ import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,6 +60,8 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider.value(
       value: authProvider,
       child: MaterialApp(
+        navigatorKey: navigatorKey,
+        builder: FToastBuilder(),
         debugShowCheckedModeBanner: false,
         home: authProvider.authState == authStatus.authenticated
             ? const HomeScreen()

@@ -3,7 +3,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
+import 'package:guardian/data/models/password_schema.dart';
+import 'package:guardian/data/service/database_service.dart';
+import 'package:guardian/helpers/custom_toast.dart';
+import 'package:guardian/services/encryption_service.dart';
 import 'package:guardian/view/constants/colors.dart';
 import 'package:guardian/view/constants/constants.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,6 +33,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   final TextEditingController websiteController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
 
+  DatabaseService _databaseService = DatabaseService();
+
   Categories? selectedCategory;
   String connectedAccount = "";
 
@@ -40,6 +47,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
       _image = image;
     });
   }
+
+  EncryptionService _encryptionService = EncryptionService();
 
   @override
   Widget build(BuildContext context) {
@@ -241,15 +250,50 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       AppColors.greenAppColor,
                     ),
                   ),
-                  onPressed: () {
-                    print(titleController.text);
-                    print(usernameController.text);
-                    print(passwordController.text);
-                    print(selectedCategory.toString());
-                    print(websiteController.text);
-                    print(noteController.text);
-                    print(connectedAccount);
-                    Navigator.pop(context);
+                  onPressed: () async {
+                    if (titleController.text.isEmpty) {
+                      Toasts().showErrorToast(context, "Please enter a title");
+                    } else if (passwordController.text.isEmpty) {
+                      Toasts()
+                          .showErrorToast(context, "Please enter a password");
+                    } else {
+                      String encrypt = _encryptionService
+                          .encryptPassword(passwordController.text);
+                      Password newEntry = Password()
+                        ..title = titleController.text
+                        ..username = usernameController.text
+                        ..category =
+                            selectedCategory ?? Categories.miscellaneous
+                        ..note = noteController.text
+                        ..connectedAccount = connectedAccount
+                        ..createdAt = DateTime.now()
+                        ..lastModified = DateTime.now()
+                        ..imagePath = _image?.path
+                        ..websiteAddress = websiteController.text
+                        ..encryptedPassword = encrypt;
+
+                      try {
+                        await _databaseService.savePassword(newEntry);
+                        Toasts().showSuccessToast(
+                            context, "Password saved successfully");
+                        Navigator.pop(context);
+                      } catch (e) {
+                        Toasts()
+                            .showErrorToast(context, "Error saving password");
+                        print(e.toString());
+                      }
+                      // print(encrypt);
+                      // print(_encryptionService.decryptPassword(encrypt));
+                      // print(titleController.text);
+                      // print(usernameController.text);
+                      // //print(passwordController.text);
+                      // print(selectedCategory.toString());
+                      // print(websiteController.text);
+                      // print(noteController.text);
+                      // print(connectedAccount);
+                    }
+
+                    //Navigator.pop(context);
                   },
                   child: const Text(
                     "Save Password",
