@@ -2,12 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:guardian/data/service/database_service.dart';
 import 'package:guardian/view/constants/colors.dart';
 import 'package:guardian/view/screens/home_screen.dart';
 import 'package:local_auth/local_auth.dart';
 
 class LandingScreen extends StatefulWidget {
-  const LandingScreen({super.key});
+  final DatabaseService databaseService;
+  const LandingScreen({super.key, required this.databaseService});
 
   @override
   State<LandingScreen> createState() => _LandingScreenState();
@@ -41,11 +43,14 @@ class _LandingScreenState extends State<LandingScreen> {
                   try {
                     bool pass = await auth.authenticate(
                         localizedReason: 'Authenticate to continue',
-                        options: const AuthenticationOptions(biometricOnly: true));
+                        options:
+                            const AuthenticationOptions(biometricOnly: true));
                     if (pass) {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => const HomeScreen(),
+                          builder: (context) => HomeScreen(
+                            databaseService: widget.databaseService,
+                          ),
                         ),
                       );
                     }
