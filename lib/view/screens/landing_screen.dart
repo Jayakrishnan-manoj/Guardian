@@ -8,8 +8,7 @@ import 'package:guardian/view/screens/home_screen.dart';
 import 'package:local_auth/local_auth.dart';
 
 class LandingScreen extends StatefulWidget {
-  final DatabaseService databaseService;
-  const LandingScreen({super.key, required this.databaseService});
+  const LandingScreen({super.key});
 
   @override
   State<LandingScreen> createState() => _LandingScreenState();
@@ -48,9 +47,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     if (pass) {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => HomeScreen(
-                            databaseService: widget.databaseService,
-                          ),
+                          builder: (context) => HomeScreen(),
                         ),
                       );
                     }

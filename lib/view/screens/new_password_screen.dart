@@ -5,13 +5,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
+import 'package:guardian/controller/category_provider.dart';
 import 'package:guardian/data/models/password_schema.dart';
+import 'package:guardian/data/repositories/password_repository.dart';
 import 'package:guardian/data/service/database_service.dart';
 import 'package:guardian/helpers/custom_toast.dart';
 import 'package:guardian/services/encryption_service.dart';
 import 'package:guardian/view/constants/colors.dart';
 import 'package:guardian/view/constants/constants.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class NewPasswordScreen extends StatefulWidget {
   const NewPasswordScreen({super.key});
@@ -49,6 +52,15 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   }
 
   EncryptionService _encryptionService = EncryptionService();
+
+  late PasswordRepository _passwordRepository;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _passwordRepository = Provider.of<PasswordRepository>(context,listen: false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -273,9 +285,10 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         ..encryptedPassword = encrypt;
 
                       try {
-                        await _databaseService.savePassword(newEntry);
+                        await _passwordRepository.savePassword(newEntry);
                         Toasts().showSuccessToast(
                             context, "Password saved successfully");
+
                         Navigator.pop(context);
                       } catch (e) {
                         Toasts()

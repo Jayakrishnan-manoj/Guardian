@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:guardian/data/models/category_schema.dart';
 import 'package:guardian/data/models/password_schema.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -35,7 +38,7 @@ class DatabaseService {
     final dir = await getApplicationDocumentsDirectory();
     if (Isar.instanceNames.isEmpty) {
       return await Isar.open(
-        [PasswordSchema],
+        [PasswordSchema, CategorySchemaSchema],
         directory: dir.path,
       );
     }
@@ -50,6 +53,14 @@ class DatabaseService {
     });
   }
 
+  Future<void> deletePassword(Id id) async {
+    final isar = await db;
+    await isar.writeTxn(() async {
+      final success = await isar.passwords.delete(id);
+      print('Password deleted $success');
+    });
+  }
+
   Future<void> updatePassword(
     Password password, {
     required String username,
@@ -58,6 +69,7 @@ class DatabaseService {
     required String? websiteAddress,
     required String? note,
     required String? imagePath,
+    required String? title,
   }) async {
     final isar = await db;
     password.username = username;
@@ -67,10 +79,47 @@ class DatabaseService {
     password.note = note;
     password.imagePath = imagePath;
     password.lastModified = DateTime.now();
+    password.title = title!;
 
     await isar.writeTxn(() async {
       await isar.passwords.put(password);
     });
+  }
+
+  Future<void> updateCategoryCount(Categories category, int change) async {
+    final isar = await db;
+    await isar.writeTxn(() async {
+      var counts =
+          await isar.categorySchemas.where().findFirst() ?? CategorySchema();
+      switch (category) {
+        case Categories.browser:
+          counts.browserPasswords += change;
+          break;
+        case Categories.socialMedia:
+          counts.socialPasswords += change;
+          break;
+        case Categories.payments:
+          counts.paymentPasswords += change;
+          break;
+        case Categories.miscellaneous:
+          counts.miscellaneousPasswords += change;
+          break;
+      }
+      await isar.categorySchemas.put(counts);
+    });
+  }
+
+  Future<CategorySchema> getCategoryCounts() async {
+    final isar = await db;
+    return await isar.categorySchemas.where().findFirst() ?? CategorySchema();
+  }
+
+  Stream<CategorySchema> watchCategoryCounts() async* {
+    final isar = await db;
+    yield* isar.categorySchemas
+        .where()
+        .watch(fireImmediately: true)
+        .map((counts) => counts.isNotEmpty ? counts.first : CategorySchema());
   }
 
   // Stream<List<Password>> watchPasswordEntries() async* {

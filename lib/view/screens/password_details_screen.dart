@@ -6,12 +6,16 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:guardian/controller/category_provider.dart';
 import 'package:guardian/data/models/password_schema.dart';
+import 'package:guardian/data/repositories/password_repository.dart';
 import 'package:guardian/data/service/database_service.dart';
+import 'package:guardian/helpers/custom_toast.dart';
 import 'package:guardian/services/encryption_service.dart';
 import 'package:guardian/view/constants/colors.dart';
 import 'package:guardian/view/constants/constants.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class PasswordDetailsScreen extends StatefulWidget {
   final Password password;
@@ -31,9 +35,11 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController websiteController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
 
   final ImagePicker _picker = ImagePicker();
   XFile? _image;
+  late PasswordRepository _passwordRepository;
 
   Future pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -51,6 +57,8 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
         EncryptionService().decryptPassword(widget.password.encryptedPassword);
     websiteController.text = widget.password.websiteAddress!;
     noteController.text = widget.password.note!;
+    titleController.text = widget.password.title;
+    _passwordRepository = Provider.of<PasswordRepository>(context, listen: false);
   }
 
   @override
@@ -151,15 +159,29 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                     )),
                     Gap(20),
                     Center(
-                      child: Text(
-                        widget.password.title,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 24,
-                        ),
-                      ),
-                    ),
+                        child: isReadOnly
+                            ? Text(
+                                widget.password.title,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 24,
+                                ),
+                              )
+                            : TextField(
+                                textAlign: TextAlign.center,
+                                cursorColor: AppColors.greenAppColor,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 24,
+                                ),
+                                controller: titleController,
+                                decoration: InputDecoration(
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                ),
+                              )),
                     Gap(20),
                     Container(
                       padding: const EdgeInsets.all(20),
@@ -339,11 +361,17 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                     ),
                   ),
                   onPressed: isReadOnly
-                      ? () {}
+                      ? () async {
+                          await _passwordRepository.deletePassword(widget.password);
+                          Navigator.of(context).pop();
+                          Toasts()
+                              .showSuccessToast(context, "Password deleted!");
+                        }
                       : () async {
                           await DatabaseService()
                               .updatePassword(
                             widget.password,
+                            title: titleController.text,
                             username: usernameController.text,
                             encryptedPassword: EncryptionService()
                                 .encryptPassword(passwordController.text),
@@ -356,6 +384,8 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                           )
                               .whenComplete(() {
                             Navigator.of(context).pop();
+                            Toasts()
+                                .showSuccessToast(context, "Password updated!");
                           });
                         },
                   child: Row(

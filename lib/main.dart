@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:guardian/controller/auth_provider.dart';
+import 'package:guardian/controller/category_provider.dart';
 import 'package:guardian/data/service/database_service.dart';
 import 'package:guardian/services/encryption_service.dart';
 import 'package:guardian/view/constants/colors.dart';
@@ -13,6 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'data/repositories/password_repository.dart';
+
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
@@ -23,63 +26,43 @@ void main() async {
   await encryptionService.init();
   final databaseService = DatabaseService();
   await databaseService.db;
+  final categoryProvider = CategoryProvider(databaseService);
+  final passwordRepository =
+      PasswordRepository(databaseService, categoryProvider);
   runApp(MyApp(
     authProvider: authProvider,
-    databaseService: databaseService,
+    passwordRepository: passwordRepository,
+    categoryProvider: categoryProvider,
   ));
 }
 
 class MyApp extends StatelessWidget {
   final AuthProvider authProvider;
-  final DatabaseService databaseService;
+  final PasswordRepository passwordRepository;
+  final CategoryProvider categoryProvider;
 
   const MyApp({
     required this.authProvider,
     Key? key,
-    required this.databaseService,
+    required this.categoryProvider,
+    required this.passwordRepository,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // final GoRouter router = GoRouter(
-    //   initialLocation: "/",
-    //   restorationScopeId: 'router', // Add this line to restore state
-    //   routes: [
-    //     GoRoute(
-    //       path: "/",
-    //       builder: (context, state) {
-    //         switch (authProvider.authState) {
-    //           case authStatus.authenticated:
-    //             return const NewPasswordScreen();
-    //           default:
-    //             return const NewPasswordScreen();
-    //         }
-    //       },
-    //     ),
-    //     GoRoute(
-    //       path: "/landing",
-    //       builder: (context, state) => const LandingScreen(),
-    //     ),
-    //     GoRoute(
-    //       path: "/add-password",
-    //       builder: (context, state) => const NewPasswordScreen(),
-    //     ),
-    //   ],
-    // );
-
-    return ChangeNotifierProvider.value(
-      value: authProvider,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AuthProvider>.value(value: authProvider),
+        ChangeNotifierProvider<CategoryProvider>.value(value: categoryProvider),
+        Provider<PasswordRepository>.value(value: passwordRepository),
+      ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
         builder: FToastBuilder(),
         debugShowCheckedModeBanner: false,
         home: authProvider.authState == authStatus.authenticated
-            ? HomeScreen(
-                databaseService: databaseService,
-              )
-            : LandingScreen(
-                databaseService: databaseService,
-              ),
+            ? HomeScreen()
+            : LandingScreen(),
         title: 'Guardian',
         theme: ThemeData(
           scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
@@ -92,5 +75,31 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+
+    // return ChangeNotifierProvider.value(
+    //   value: authProvider,
+    //   child: MaterialApp(
+    //     navigatorKey: navigatorKey,
+    //     builder: FToastBuilder(),
+    //     debugShowCheckedModeBanner: false,
+    //     home: authProvider.authState == authStatus.authenticated
+    //         ? HomeScreen(
+    //             databaseService: databaseService,
+    //           )
+    //         : LandingScreen(
+    //             databaseService: databaseService,
+    //           ),
+    //     title: 'Guardian',
+    //     theme: ThemeData(
+    //       scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
+    //       useMaterial3: false,
+    //       fontFamily: "PT Sans",
+    //       appBarTheme: const AppBarTheme().copyWith(
+    //         backgroundColor: Colors.transparent,
+    //         elevation: 0,
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 }

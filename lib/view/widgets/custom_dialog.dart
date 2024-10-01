@@ -26,49 +26,49 @@ class _CustomDialogState extends State<CustomDialog> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                children: [
-                  MiniCategoryCard(
-                    onPressed: () {},
-                    icon: const FaIcon(
-                      FontAwesomeIcons.globe,
-                      color: Colors.white,
-                    ),
-                    title: "Browser",
-                  ),
-                  const Gap(10),
-                  MiniCategoryCard(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.phone_android,
-                      color: Colors.white,
-                    ),
-                    title: "Social Media",
-                  ),
-                ],
-              ),
-              const Gap(10),
-              Row(
-                children: [
-                  MiniCategoryCard(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.wallet,
-                      color: Colors.white,
-                    ),
-                    title: "Payments",
-                  ),
-                  const Gap(10),
-                  MiniCategoryCard(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.category,
-                      color: Colors.white,
-                    ),
-                    title: "Miscellaneous",
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     MiniCategoryCard(
+              //       onPressed: () {},
+              //       icon: const FaIcon(
+              //         FontAwesomeIcons.globe,
+              //         color: Colors.white,
+              //       ),
+              //       title: "Browser",
+              //     ),
+              //     const Gap(10),
+              //     MiniCategoryCard(
+              //       onPressed: () {},
+              //       icon: const Icon(
+              //         Icons.phone_android,
+              //         color: Colors.white,
+              //       ),
+              //       title: "Social Media",
+              //     ),
+              //   ],
+              // ),
+              // const Gap(10),
+              // Row(
+              //   children: [
+              //     MiniCategoryCard(
+              //       onPressed: () {},
+              //       icon: const Icon(
+              //         Icons.wallet,
+              //         color: Colors.white,
+              //       ),
+              //       title: "Payments",
+              //     ),
+              //     const Gap(10),
+              //     MiniCategoryCard(
+              //       onPressed: () {},
+              //       icon: const Icon(
+              //         Icons.category,
+              //         color: Colors.white,
+              //       ),
+              //       title: "Miscellaneous",
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),
