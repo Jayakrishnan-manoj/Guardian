@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:guardian/controller/category_provider.dart';
 import 'package:guardian/data/models/category_schema.dart';
 import 'package:guardian/data/models/password_schema.dart';
+import 'package:guardian/view/screens/category_passwords_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
@@ -11,13 +12,13 @@ class MiniCategoryCard extends StatelessWidget {
   final String title;
   final Widget icon;
   final Categories category;
-  final VoidCallback onPressed;
+  //final int count;
   const MiniCategoryCard({
     super.key,
     required this.title,
     required this.icon,
-    required this.onPressed,
     required this.category,
+    //required this.count,
   });
 
   @override
@@ -44,7 +45,14 @@ class MiniCategoryCard extends StatelessWidget {
             }
           }
           return GestureDetector(
-            onTap: onPressed,
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) =>
+                      CategoryPasswordsScreen(category: category),
+                ),
+              );
+            },
             child: SizedBox(
               width: MediaQuery.sizeOf(context).width * 0.44,
               height: MediaQuery.sizeOf(context).height * 0.165,

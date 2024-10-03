@@ -8,6 +8,7 @@ import 'package:guardian/data/models/password_schema.dart';
 import 'package:guardian/data/service/database_service.dart';
 import 'package:guardian/services/encryption_service.dart';
 import 'package:guardian/view/constants/colors.dart';
+import 'package:guardian/view/screens/category_passwords_screen.dart';
 import 'package:guardian/view/screens/generate_password_page.dart';
 import 'package:guardian/view/screens/password_details_screen.dart';
 import 'package:guardian/view/screens/profile_page.dart';
@@ -95,7 +96,7 @@ class HomePage extends StatelessWidget {
     final passwordRepository = Provider.of<PasswordRepository>(context);
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -124,7 +125,6 @@ class HomePage extends StatelessWidget {
                     children: [
                       MiniCategoryCard(
                         category: Categories.browser,
-                        onPressed: () {},
                         icon: const FaIcon(
                           FontAwesomeIcons.globe,
                           size: 35,
@@ -135,7 +135,6 @@ class HomePage extends StatelessWidget {
                       const Gap(18),
                       MiniCategoryCard(
                         category: Categories.socialMedia,
-                        onPressed: () {},
                         icon: const Icon(
                           size: 35,
                           Icons.phone_android,
@@ -150,7 +149,6 @@ class HomePage extends StatelessWidget {
                     children: [
                       MiniCategoryCard(
                         category: Categories.payments,
-                        onPressed: () {},
                         icon: const Icon(
                           Icons.wallet,
                           size: 35,
@@ -161,7 +159,6 @@ class HomePage extends StatelessWidget {
                       const Gap(18),
                       MiniCategoryCard(
                         category: Categories.miscellaneous,
-                        onPressed: () {},
                         icon: const Icon(
                           Icons.category,
                           size: 35,

@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:guardian/controller/category_provider.dart';
 import 'package:guardian/data/models/category_schema.dart';
 import 'package:guardian/data/service/database_service.dart';
+import 'package:isar/isar.dart';
 
 import '../models/password_schema.dart';
 
@@ -18,6 +21,18 @@ class PasswordRepository {
   Future<void> deletePassword(Password password) async {
     await _databaseService.deletePassword(password.id);
     _categoryProvider.updateCategoryCount(password.category, -1);
+  }
+
+  Future<List<Password>> watchPasswordsByCategory(Categories category) {
+    return _databaseService.db.then((isar) {
+      return isar.passwords.filter().categoryEqualTo(category).findAll();
+    });
+  }
+
+  Future<int> countPasswordsByCategory(Categories category) async {
+    return _databaseService.db.then((isar) {
+      return isar.passwords.filter().categoryEqualTo(category).count();
+    });
   }
 
   Future<void> updatePassword(
