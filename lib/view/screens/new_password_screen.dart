@@ -17,7 +17,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class NewPasswordScreen extends StatefulWidget {
-  const NewPasswordScreen({super.key});
+  String? password;
+  NewPasswordScreen({super.key, this.password});
 
   @override
   State<NewPasswordScreen> createState() => _NewPasswordScreenState();
@@ -35,8 +36,6 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController websiteController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
-
-  DatabaseService _databaseService = DatabaseService();
 
   Categories? selectedCategory;
   String connectedAccount = "";
@@ -59,7 +58,13 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _passwordRepository = Provider.of<PasswordRepository>(context,listen: false);
+    _passwordRepository =
+        Provider.of<PasswordRepository>(context, listen: false);
+    if (widget.password != null) {
+      setState(() {
+        passwordController.text = widget.password!;
+      });
+    }
   }
 
   @override

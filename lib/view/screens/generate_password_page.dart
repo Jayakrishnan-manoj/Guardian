@@ -8,6 +8,7 @@ import 'package:gap/gap.dart';
 import 'package:guardian/helpers/custom_toast.dart';
 import 'package:guardian/services/generation_service.dart';
 import 'package:guardian/view/constants/colors.dart';
+import 'package:guardian/view/screens/new_password_screen.dart';
 import 'package:guardian/view/widgets/switch_tile.dart';
 
 class GeneratePasswordPage extends StatefulWidget {
@@ -49,6 +50,17 @@ class _GeneratePasswordPageState extends State<GeneratePasswordPage> {
             ),
             Gap(10),
             TextField(
+              onTap: () {
+                if (passwordController.text.isNotEmpty) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => NewPasswordScreen(
+                        password: passwordController.text,
+                      ),
+                    ),
+                  );
+                }
+              },
               controller: passwordController,
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -70,19 +82,22 @@ class _GeneratePasswordPageState extends State<GeneratePasswordPage> {
                   borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide.none,
                 ),
-                suffixIcon:passwordController.text.isNotEmpty ? IconButton(
-                  onPressed: () async {
-                    await Clipboard.setData(
-                      ClipboardData(text: passwordController.text),
-                    ).then((_){
-                      Toasts().showSuccessToast(context, "Password copied to clipboard");
-                    });
-                  },
-                  icon: Icon(
-                    FontAwesomeIcons.copy,
-                    color: AppColors.greenAppColor,
-                  ),
-                ): null,
+                suffixIcon: passwordController.text.isNotEmpty
+                    ? IconButton(
+                        onPressed: () async {
+                          await Clipboard.setData(
+                            ClipboardData(text: passwordController.text),
+                          ).then((_) {
+                            Toasts().showSuccessToast(
+                                context, "Password copied to clipboard");
+                          });
+                        },
+                        icon: Icon(
+                          FontAwesomeIcons.copy,
+                          color: AppColors.greenAppColor,
+                        ),
+                      )
+                    : null,
                 contentPadding: EdgeInsets.symmetric(vertical: 40),
                 filled: true,
                 fillColor: AppColors.tileColor,

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:guardian/controller/category_provider.dart';
 import 'package:guardian/data/models/category_schema.dart';
+import 'package:guardian/data/models/user_schema.dart';
 import 'package:guardian/data/service/database_service.dart';
 import 'package:isar/isar.dart';
 
@@ -33,6 +34,14 @@ class PasswordRepository {
     return _databaseService.db.then((isar) {
       return isar.passwords.filter().categoryEqualTo(category).count();
     });
+  }
+
+  Future<String?> getSavedUser() async {
+    return _databaseService.getUser();
+  }
+
+  Future<void> saveUser(UserSchema user) async {
+    _databaseService.saveUser(user);
   }
 
   Future<void> updatePassword(

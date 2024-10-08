@@ -11,15 +11,18 @@ class AuthProvider extends ChangeNotifier {
   authStatus get authState => _authStatus;
 
   Future<bool> AuthenticateUser() async {
+    print("current auth status is $authState");
     try {
       bool pass = await auth.authenticate(
           localizedReason: 'Authenticate to continue',
           options: const AuthenticationOptions(biometricOnly: true));
       if (pass) {
         _authStatus = authStatus.authenticated;
+        print("user authenticated");
         return true;
       } else {
         _authStatus = authStatus.notAuthenticated;
+        print("user not authenticated");
         return false;
       }
     } on PlatformException {

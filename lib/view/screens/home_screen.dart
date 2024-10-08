@@ -96,18 +96,22 @@ class HomePage extends StatelessWidget {
     final passwordRepository = Provider.of<PasswordRepository>(context);
     return CustomScrollView(
       slivers: [
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Hello, JayK",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              FutureBuilder(
+                  future: passwordRepository.getSavedUser(),
+                  builder: (context, user) {
+                    return Text(
+                      "Hello, ${user.data.toString()}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    );
+                  }),
               const Gap(8),
               const Text(
                 "Save your passwords easily and securely",

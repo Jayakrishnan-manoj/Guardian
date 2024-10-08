@@ -47,6 +47,7 @@ dependencies:
   sensors_plus: ^6.0.1
   sliding_clipped_nav_bar: ^3.1.1
   isar_flutter_libs: ^3.1.0+1
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   build_runner: null

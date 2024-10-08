@@ -9,6 +9,7 @@ import 'package:guardian/view/constants/colors.dart';
 import 'package:guardian/view/screens/home_screen.dart';
 import 'package:guardian/view/screens/landing_screen.dart';
 import 'package:guardian/view/screens/new_password_screen.dart';
+import 'package:guardian/view/screens/onboarding_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
