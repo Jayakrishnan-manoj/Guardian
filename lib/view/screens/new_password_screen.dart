@@ -168,7 +168,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                           });
                         },
                         backgroundColor: AppColors.tileColor,
-                        selectedColor: AppColors.greenAppColor,
+                        selectedColor: AppColors.blueAppColor,
                       ),
                     );
                   }).toList(),
@@ -188,7 +188,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       const Text(
                         "Details",
                         style: TextStyle(
-                          color: AppColors.greenAppColor,
+                          color: AppColors.blueAppColor,
                           fontWeight: FontWeight.w700,
                           fontSize: 16,
                         ),
@@ -243,7 +243,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                                 },
                                 backgroundColor:
                                     AppColors.scaffoldBackgroundColor,
-                                selectedColor: AppColors.greenAppColor,
+                                selectedColor: AppColors.blueAppColor,
                               ),
                             );
                           }).toList(),
@@ -264,7 +264,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       StadiumBorder(),
                     ),
                     backgroundColor: WidgetStatePropertyAll(
-                      AppColors.greenAppColor,
+                      AppColors.blueAppColor,
                     ),
                   ),
                   onPressed: () async {
@@ -358,7 +358,7 @@ class CustomInputTextField extends StatelessWidget {
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.greenAppColor, width: 2),
+            borderSide: BorderSide(color: AppColors.blueAppColor, width: 2),
             borderRadius: BorderRadius.circular(15)),
         hintText: hintText,
         hintStyle: TextStyle(color: AppColors.subTextColor),

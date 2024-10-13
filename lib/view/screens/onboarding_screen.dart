@@ -73,7 +73,7 @@ class OnboardingScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: AppColors.greenAppColor, width: 2),
+                              color: AppColors.scaffoldBackgroundColor, width: 2),
                           borderRadius: BorderRadius.circular(15)),
                       hintStyle: TextStyle(color: AppColors.subTextColor),
                       filled: true,
@@ -108,7 +108,7 @@ class OnboardingScreen extends StatelessWidget {
                         StadiumBorder(),
                       ),
                       backgroundColor: WidgetStatePropertyAll(
-                        AppColors.greenAppColor,
+                        AppColors.scaffoldBackgroundColor,
                       ),
                     ),
                     child: Text(

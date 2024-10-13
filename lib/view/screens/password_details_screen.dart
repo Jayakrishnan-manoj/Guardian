@@ -170,7 +170,7 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                               )
                             : TextField(
                                 textAlign: TextAlign.center,
-                                cursorColor: AppColors.greenAppColor,
+                                cursorColor: AppColors.scaffoldBackgroundColor,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700,
@@ -293,7 +293,7 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                                           backgroundColor:
                                               AppColors.scaffoldBackgroundColor,
                                           selectedColor:
-                                              AppColors.greenAppColor,
+                                              AppColors.blueAppColor,
                                         ),
                                       );
                                     }).toList(),
@@ -308,7 +308,7 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                         Text(
                           "Details",
                           style: TextStyle(
-                            color: AppColors.greenAppColor,
+                            color: AppColors.blueAppColor,
                             fontWeight: FontWeight.w700,
                             fontSize: 18,
                           ),
@@ -357,7 +357,7 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                     backgroundColor: WidgetStatePropertyAll(
                       isReadOnly
                           ? Colors.red.withOpacity(0.8)
-                          : AppColors.greenAppColor.withOpacity(0.8),
+                          : AppColors.blueAppColor.withOpacity(0.8),
                     ),
                   ),
                   onPressed: isReadOnly
@@ -453,7 +453,7 @@ class PasswordDetailTextField extends StatelessWidget {
           enabled: isPassword ? true : !isReadOnly,
           border: _getBorder(),
           enabledBorder: _getBorder(),
-          focusedBorder: _getBorder(color: AppColors.greenAppColor),
+          focusedBorder: _getBorder(color: AppColors.blueAppColor),
           disabledBorder: InputBorder.none,
           prefixIcon: icon != null
               ? Icon(
@@ -526,7 +526,7 @@ class PasswordDetailTextField extends StatelessWidget {
 //         focusedBorder: isReadOnly == false
 //             ? OutlineInputBorder(
 //                 borderSide:
-//                     BorderSide(color: AppColors.greenAppColor, width: 2),
+//                     BorderSide(color: AppColors.scaffoldBackgroundColor, width: 2),
 //                 borderRadius: BorderRadius.circular(15),
 //               )
 //             : null,

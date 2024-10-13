@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,13 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
     _pageController = PageController(initialPage: selectedIndex);
   }
 
-  void onButtonPressed(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-    _pageController.animateToPage(selectedIndex,
-        duration: const Duration(milliseconds: 400), curve: Curves.easeOutQuad);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,29 +55,104 @@ class _HomeScreenState extends State<HomeScreen> {
             vertical: 10.0,
             horizontal: 12,
           ),
-          child: PageView(
-            physics: NeverScrollableScrollPhysics(),
-            controller: _pageController,
+          child: Stack(
             children: [
-              HomePage(),
-              const GeneratePasswordPage(),
-              const ProfilePage(),
+              PageView(
+                physics: NeverScrollableScrollPhysics(),
+                controller: _pageController,
+                children: [
+                  HomePage(),
+                  const GeneratePasswordPage(),
+                  const ProfilePage(),
+                ],
+              ),
+              Positioned(
+                bottom: 20,
+                //top: 100,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(40),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40),
+                          color: Colors.white.withOpacity(0.1),
+                        ),
+                        width: MediaQuery.sizeOf(context).width * 0.87,
+                        height: 70,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                CupertinoIcons.home,
+                                size: 35,
+                                color:selectedIndex == 0 ? AppColors.blueAppColor : Colors.white,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  selectedIndex = 0;
+                                });
+                                _pageController.animateToPage(0,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.easeIn);
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                CupertinoIcons.wand_stars,
+                                size: 35,
+                                color: selectedIndex == 1 ? AppColors.blueAppColor : Colors.white,
+                              ),
+                              onPressed: () {
+                                 setState(() {
+                                  selectedIndex = 1;
+                                });
+                                _pageController.animateToPage(1,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.easeIn);
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                CupertinoIcons.person_alt_circle,
+                                size: 35,
+                                color: selectedIndex == 2 ? AppColors.blueAppColor : Colors.white,
+                              ),
+                              onPressed: () {
+                                 setState(() {
+                                  selectedIndex = 2;
+                                });
+                                _pageController.animateToPage(2,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.easeIn);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: SlidingClippedNavBar(
-        backgroundColor: AppColors.tileColor,
-        iconSize: 32,
-        selectedIndex: selectedIndex,
-        onButtonPressed: onButtonPressed,
-        activeColor: AppColors.greenAppColor,
-        barItems: [
-          BarItem(title: "Home", icon: CupertinoIcons.home),
-          BarItem(title: "Generate", icon: CupertinoIcons.wand_stars),
-          BarItem(title: "Profile", icon: CupertinoIcons.person_alt_circle)
-        ],
-      ),
+      // bottomNavigationBar: SlidingClippedNavBar(
+      //   backgroundColor: AppColors.tileColor,
+      //   iconSize: 32,
+      //   selectedIndex: selectedIndex,
+      //   onButtonPressed: onButtonPressed,
+      //   activeColor: AppColors.blueAppColor,
+      //   barItems: [
+      //     BarItem(title: "Home", icon: CupertinoIcons.home),
+      //     BarItem(title: "Generate", icon: CupertinoIcons.wand_stars),
+      //     BarItem(title: "Profile", icon: CupertinoIcons.person_alt_circle)
+      //   ],
+      // ),
     );
   }
 }

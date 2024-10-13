@@ -59,7 +59,7 @@ class NewPasswordCard extends StatelessWidget {
                     StadiumBorder(),
                   ),
                   backgroundColor: WidgetStatePropertyAll(
-                    AppColors.greenAppColor,
+                    AppColors.blueAppColor,
                   ),
                 ),
                 onPressed: () {

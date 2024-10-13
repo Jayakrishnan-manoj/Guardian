@@ -30,7 +30,7 @@ class PasswordTile extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 30,
-              backgroundColor: AppColors.scaffoldBackgroundColor,
+              backgroundColor: AppColors.blueAppColor,
               child: imagePath != null
                   ? ClipOval(
                     child: Image.file(

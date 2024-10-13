@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:guardian/view/constants/colors.dart';
 
@@ -16,7 +17,7 @@ class SwitchTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: 70,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: AppColors.tileColor,
@@ -31,7 +32,8 @@ class SwitchTile extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          Switch(
+          CupertinoSwitch(
+            activeColor: AppColors.blueAppColor,
             value: parameter,
             onChanged: onChanged,
           ),

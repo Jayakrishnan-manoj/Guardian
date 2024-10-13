@@ -94,7 +94,7 @@ class _GeneratePasswordPageState extends State<GeneratePasswordPage> {
                         },
                         icon: Icon(
                           FontAwesomeIcons.copy,
-                          color: AppColors.greenAppColor,
+                          color: AppColors.scaffoldBackgroundColor,
                         ),
                       )
                     : null,
@@ -120,8 +120,8 @@ class _GeneratePasswordPageState extends State<GeneratePasswordPage> {
                   borderRadius: BorderRadius.circular(15)),
               child: SliderTheme(
                 data: SliderTheme.of(context).copyWith(
-                  thumbColor: AppColors.greenAppColor,
-                  activeTrackColor: AppColors.greenAppColor,
+                  thumbColor: AppColors.blueAppColor,
+                  activeTrackColor: AppColors.blueAppColor,
                   inactiveTickMarkColor: const Color(0xFF8D8E98),
                   thumbShape: const RoundSliderThumbShape(
                     enabledThumbRadius: 10.0,
@@ -129,7 +129,7 @@ class _GeneratePasswordPageState extends State<GeneratePasswordPage> {
                   overlayShape: const RoundSliderOverlayShape(
                     overlayRadius: 20.0,
                   ),
-                  overlayColor: AppColors.greenAppColor.withOpacity(0.4),
+                  overlayColor: AppColors.blueAppColor.withOpacity(0.4),
                 ),
                 child: Slider(
                   min: 4,
@@ -180,43 +180,39 @@ class _GeneratePasswordPageState extends State<GeneratePasswordPage> {
                 });
               },
             ),
-            Expanded(
-              child: Align(
-                alignment: FractionalOffset.bottomCenter,
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 60,
-                  child: ElevatedButton(
-                    style: const ButtonStyle(
-                      elevation: WidgetStatePropertyAll(0),
-                      shape: WidgetStatePropertyAll(
-                        StadiumBorder(),
-                      ),
-                      backgroundColor: WidgetStatePropertyAll(
-                        AppColors.greenAppColor,
-                      ),
-                    ),
-                    onPressed: () {
-                      String generatedPassword =
-                          PasswordGenerationService().generatePassword(
-                        includeLetters: includeLetters,
-                        includeNumbers: includeNumbers,
-                        includeSymbols: includeSymbols,
-                        length: passwordLength,
-                      );
-
-                      setState(() {
-                        passwordController.text = generatedPassword;
-                      });
-                    },
-                    child: Text(
-                      "Generate Password",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+            Gap(40),
+            SizedBox(
+              width: double.infinity,
+              height: 60,
+              child: ElevatedButton(
+                style: const ButtonStyle(
+                  elevation: WidgetStatePropertyAll(0),
+                  shape: WidgetStatePropertyAll(
+                    StadiumBorder(),
+                  ),
+                  backgroundColor: WidgetStatePropertyAll(
+                    AppColors.blueAppColor,
+                  ),
+                ),
+                onPressed: () {
+                  String generatedPassword =
+                      PasswordGenerationService().generatePassword(
+                    includeLetters: includeLetters,
+                    includeNumbers: includeNumbers,
+                    includeSymbols: includeSymbols,
+                    length: passwordLength,
+                  );
+                        
+                  setState(() {
+                    passwordController.text = generatedPassword;
+                  });
+                },
+                child: Text(
+                  "Generate Password",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
