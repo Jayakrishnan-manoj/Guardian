@@ -101,62 +101,65 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
-                        child: CircleAvatar(
-                      radius: 40,
-                      backgroundColor: AppColors.scaffoldBackgroundColor,
-                      child: widget.password.imagePath != null || _image != null
-                          ? ClipOval(
-                              child: Stack(
-                                children: [
-                                  Image.file(
-                                    File(_image?.path ??
-                                        widget.password.imagePath!),
-                                    width: 80,
-                                    height: 80,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  if (!isReadOnly)
-                                    Container(
-                                      height: 80,
+                        child: Hero(
+                          tag:widget.password.imagePath == null ? "password image_${widget.password.title}" : "password image_${widget.password.imagePath}",
+                          child: CircleAvatar(
+                                                radius: 40,
+                                                backgroundColor: AppColors.scaffoldBackgroundColor,
+                                                child: widget.password.imagePath != null || _image != null
+                            ? ClipOval(
+                                child: Stack(
+                                  children: [
+                                    Image.file(
+                                      File(_image?.path ??
+                                          widget.password.imagePath!),
                                       width: 80,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.black.withOpacity(0.6),
-                                      ),
-                                      child: IconButton(
-                                        onPressed: () {
-                                          pickImage();
-                                        },
-                                        icon: Icon(Icons.edit_outlined),
-                                      ),
+                                      height: 80,
+                                      fit: BoxFit.cover,
                                     ),
-                                ],
-                              ),
-                            )
-                          : isReadOnly
-                              ? Text(
-                                  widget.password.title.substring(0, 1),
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
-                                )
-                              : Container(
-                                  height: 80,
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.black.withOpacity(0.6),
-                                  ),
-                                  child: IconButton(
-                                    onPressed: () {
-                                      pickImage();
-                                    },
-                                    icon: Icon(Icons.edit_outlined),
-                                  ),
+                                    if (!isReadOnly)
+                                      Container(
+                                        height: 80,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.black.withOpacity(0.6),
+                                        ),
+                                        child: IconButton(
+                                          onPressed: () {
+                                            pickImage();
+                                          },
+                                          icon: Icon(Icons.edit_outlined),
+                                        ),
+                                      ),
+                                  ],
                                 ),
-                    )),
+                              )
+                            : isReadOnly
+                                ? Text(
+                                    widget.password.title.substring(0, 1),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
+                                  )
+                                : Container(
+                                    height: 80,
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.black.withOpacity(0.6),
+                                    ),
+                                    child: IconButton(
+                                      onPressed: () {
+                                        pickImage();
+                                      },
+                                      icon: Icon(Icons.edit_outlined),
+                                    ),
+                                  ),
+                                              ),
+                        )),
                     Gap(20),
                     Center(
                         child: isReadOnly

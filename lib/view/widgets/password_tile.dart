@@ -28,26 +28,29 @@ class PasswordTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            CircleAvatar(
-              radius: 30,
-              backgroundColor: AppColors.blueAppColor,
-              child: imagePath != null
-                  ? ClipOval(
-                    child: Image.file(
-                        File(imagePath!),
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.cover,
+            Hero(
+              tag:imagePath == null ? "password image_$title" : "password image_$imagePath",
+              child: CircleAvatar(
+                radius: 30,
+                backgroundColor: AppColors.blueAppColor,
+                child: imagePath != null
+                    ? ClipOval(
+                      child: Image.file(
+                          File(imagePath!),
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.cover,
+                        ),
+                    )
+                    : Text(
+                        title.substring(0, 1),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
-                  )
-                  : Text(
-                      title.substring(0, 1),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
+              ),
             ),
             Gap(20),
             Expanded(

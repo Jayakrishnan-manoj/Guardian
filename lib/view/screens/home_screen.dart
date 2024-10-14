@@ -45,7 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
     _pageController = PageController(initialPage: selectedIndex);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +88,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               icon: Icon(
                                 CupertinoIcons.home,
                                 size: 35,
-                                color:selectedIndex == 0 ? AppColors.blueAppColor : Colors.white,
+                                color: selectedIndex == 0
+                                    ? AppColors.blueAppColor
+                                    : Colors.white,
                               ),
                               onPressed: () {
                                 setState(() {
@@ -104,10 +105,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               icon: Icon(
                                 CupertinoIcons.wand_stars,
                                 size: 35,
-                                color: selectedIndex == 1 ? AppColors.blueAppColor : Colors.white,
+                                color: selectedIndex == 1
+                                    ? AppColors.blueAppColor
+                                    : Colors.white,
                               ),
                               onPressed: () {
-                                 setState(() {
+                                setState(() {
                                   selectedIndex = 1;
                                 });
                                 _pageController.animateToPage(1,
@@ -119,10 +122,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               icon: Icon(
                                 CupertinoIcons.person_alt_circle,
                                 size: 35,
-                                color: selectedIndex == 2 ? AppColors.blueAppColor : Colors.white,
+                                color: selectedIndex == 2
+                                    ? AppColors.blueAppColor
+                                    : Colors.white,
                               ),
                               onPressed: () {
-                                 setState(() {
+                                setState(() {
                                   selectedIndex = 2;
                                 });
                                 _pageController.animateToPage(2,
@@ -141,18 +146,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      // bottomNavigationBar: SlidingClippedNavBar(
-      //   backgroundColor: AppColors.tileColor,
-      //   iconSize: 32,
-      //   selectedIndex: selectedIndex,
-      //   onButtonPressed: onButtonPressed,
-      //   activeColor: AppColors.blueAppColor,
-      //   barItems: [
-      //     BarItem(title: "Home", icon: CupertinoIcons.home),
-      //     BarItem(title: "Generate", icon: CupertinoIcons.wand_stars),
-      //     BarItem(title: "Profile", icon: CupertinoIcons.person_alt_circle)
-      //   ],
-      // ),
     );
   }
 }
@@ -284,10 +277,21 @@ class HomePage extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              PasswordDetailsScreen(password: password),
+                        PageRouteBuilder(
+                          transitionDuration: Duration(milliseconds: 400),
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  PasswordDetailsScreen(password: password),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return FadeTransition(
+                                opacity: animation, child: child);
+                          },
                         ),
+                        // MaterialPageRoute(
+                        //   builder: (context) =>
+                        //       PasswordDetailsScreen(password: password),
+                        // ),
                       );
                     },
                     child: PasswordTile(
@@ -302,157 +306,12 @@ class HomePage extends StatelessWidget {
             );
           },
         ),
+        SliverToBoxAdapter(
+          child: SizedBox(
+            height: 60,
+          ),
+        )
       ],
     );
   }
 }
-
-// class HomePage extends StatelessWidget {
-//   final DatabaseService databaseService;
-//   const HomePage({
-//     super.key,
-//     required this.databaseService,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SingleChildScrollView(
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           const Text(
-//             "Hello, JayK",
-//             style: TextStyle(
-//               color: Colors.white,
-//               fontSize: 32,
-//               fontWeight: FontWeight.w600,
-//             ),
-//           ),
-//           const Gap(8),
-//           const Text(
-//             "Save your passwords easily and securely",
-//             style: TextStyle(
-//               color: AppColors.subTextColor,
-//               fontSize: 16,
-//             ),
-//           ),
-//           const Gap(20),
-//           const NewPasswordCard(),
-//           const Gap(20),
-//           Column(
-//             children: [
-//               Row(
-//                 children: [
-//                   MiniCategoryCard(
-//                     category: Categories.browser,
-//                     onPressed: () {},
-//                     icon: const FaIcon(
-//                       FontAwesomeIcons.globe,
-//                       size: 35,
-//                       color: Colors.white,
-//                     ),
-//                     title: "Browser",
-//                   ),
-//                   const Gap(18),
-//                   MiniCategoryCard(
-//                     category: Categories.socialMedia,
-//                     onPressed: () {},
-//                     icon: const Icon(
-//                       size: 35,
-//                       Icons.phone_android,
-//                       color: Colors.white,
-//                     ),
-//                     title: "Social Media",
-//                   ),
-//                 ],
-//               ),
-//               const Gap(18),
-//               Row(
-//                 children: [
-//                   MiniCategoryCard(
-//                     category: Categories.payments,
-//                     onPressed: () {},
-//                     icon: const Icon(
-//                       Icons.wallet,
-//                       size: 35,
-//                       color: Colors.white,
-//                     ),
-//                     title: "Payments",
-//                   ),
-//                   const Gap(18),
-//                   MiniCategoryCard(
-//                     category: Categories.miscellaneous,
-//                     onPressed: () {},
-//                     icon: const Icon(
-//                       Icons.category,
-//                       size: 35,
-//                       color: Colors.white,
-//                     ),
-//                     title: "Miscellaneous",
-//                   ),
-//                 ],
-//               ),
-//             ],
-//           ),
-//           const Gap(20),
-//           const Text(
-//             "Saved Passwords",
-//             style: TextStyle(
-//               color: Colors.white,
-//               fontWeight: FontWeight.w700,
-//               fontSize: 22,
-//             ),
-//           ),
-//           Gap(15),
-//           StreamBuilder<List<Password>>(
-//               stream: databaseService.listenPasswords(),
-//               builder: (context, snapshot) {
-//                 if (snapshot.connectionState == ConnectionState.waiting) {
-//                   return Center(child: CircularProgressIndicator());
-//                 }
-//                 // if (!snapshot.hasData || snapshot.data!.isEmpty) {
-//                 //   return Center(child: Text('No passwords saved yet'));
-//                 // }
-//                 if (snapshot.hasError) {
-//                   return Center(child: Text('Error: ${snapshot.error}'));
-//                 }
-//                 if (snapshot.data == null) {
-//                   return Center(
-//                       child: Text(
-//                           "no dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
-//                 }
-//                 if (!snapshot.hasData) {
-//                   return Center(child: Text('No data available'));
-//                 }
-//                 if (snapshot.data!.isEmpty) {
-//                   return Center(child: Text('No passwords saved yet'));
-//                 }
-//                 return SizedBox(
-//                   height: 500,
-//                   child: ListView.builder(
-//                       itemCount: snapshot.data!.length,
-//                       itemBuilder: (context, index) {
-//                         final password = snapshot.data![index];
-//                         return GestureDetector(
-//                           onTap: () {
-//                             Navigator.of(context).push(
-//                               MaterialPageRoute(
-//                                 builder: (context) =>
-//                                     PasswordDetailsScreen(password: password),
-//                               ),
-//                             );
-//                           },
-//                           child: PasswordTile(
-//                             title: password.title,
-//                             username: password.username,
-//                             imagePath: password.imagePath,
-//                           ),
-//                         );
-//                       }),
-//                 );
-//               })
-//         ],
-//       ),
-//     );
-//   }
-// }
