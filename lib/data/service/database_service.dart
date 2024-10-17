@@ -22,7 +22,13 @@ class DatabaseService {
     yield* isar.passwords
         .where()
         .sortByCreatedAtDesc()
+        .limit(10)
         .watch(fireImmediately: true);
+  }
+
+  Future<List<Password>> getAllPasswords() async {
+    final isar = await db;
+    return isar.passwords.where().findAll();
   }
 
   Stream<List<Password>> get watchPasswordEntries {

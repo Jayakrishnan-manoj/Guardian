@@ -45,6 +45,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 height: 30,
               ),
               IconButton(
+                iconSize: 80,
                 padding: const EdgeInsets.only(right: 40),
                 onPressed: () async {
                   try {

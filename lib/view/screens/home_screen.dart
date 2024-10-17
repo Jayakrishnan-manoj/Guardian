@@ -8,17 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:guardian/data/models/password_schema.dart';
-import 'package:guardian/data/service/database_service.dart';
-import 'package:guardian/services/encryption_service.dart';
 import 'package:guardian/view/constants/colors.dart';
-import 'package:guardian/view/screens/category_passwords_screen.dart';
+import 'package:guardian/view/screens/all_passwords_screen.dart';
 import 'package:guardian/view/screens/generate_password_page.dart';
-import 'package:guardian/view/screens/password_details_screen.dart';
 import 'package:guardian/view/screens/profile_page.dart';
 import 'package:guardian/view/widgets/new_password_card.dart';
 import 'package:guardian/view/widgets/password_tile.dart';
 import 'package:provider/provider.dart';
-import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 
 import '../../data/repositories/password_repository.dart';
 import '../widgets/mini_category_card.dart';
@@ -239,13 +235,37 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               const Gap(20),
-              const Text(
-                "Saved Passwords",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 22,
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: const Text(
+                      "Recently Saved",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 22,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => AllPasswordsScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "See All",
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: AppColors.blueAppColor,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18,
+                      ),
+                    ),
+                  )
+                ],
               ),
               Gap(15),
             ],
@@ -274,31 +294,9 @@ class HomePage extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   final password = snapshot.data![index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        PageRouteBuilder(
-                          transitionDuration: Duration(milliseconds: 400),
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  PasswordDetailsScreen(password: password),
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            return FadeTransition(
-                                opacity: animation, child: child);
-                          },
-                        ),
-                        // MaterialPageRoute(
-                        //   builder: (context) =>
-                        //       PasswordDetailsScreen(password: password),
-                        // ),
-                      );
-                    },
-                    child: PasswordTile(
-                      title: password.title,
-                      username: password.username,
-                      imagePath: password.imagePath,
-                    ),
+                  return PasswordTile(
+                    isHome: true,
+                   password: password,
                   );
                 },
                 childCount: snapshot.data!.length,

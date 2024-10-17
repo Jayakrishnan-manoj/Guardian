@@ -19,6 +19,10 @@ class PasswordRepository {
     _categoryProvider.updateCategoryCount(password.category, 1);
   }
 
+  Future<List<Password>> getAllPasswords() async {
+    return await _databaseService.getAllPasswords();
+  }
+
   Future<void> deletePassword(Password password) async {
     await _databaseService.deletePassword(password.id);
     _categoryProvider.updateCategoryCount(password.category, -1);

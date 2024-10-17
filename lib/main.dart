@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:guardian/controller/auth_provider.dart';
@@ -11,6 +12,8 @@ import 'package:guardian/view/screens/landing_screen.dart';
 import 'package:guardian/view/screens/new_password_screen.dart';
 import 'package:guardian/view/screens/onboarding_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'package:flutter/rendering.dart';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -35,6 +38,7 @@ void main() async {
     passwordRepository: passwordRepository,
     categoryProvider: categoryProvider,
   ));
+  //debugPaintSizeEnabled = true;
 }
 
 class MyApp extends StatelessWidget {

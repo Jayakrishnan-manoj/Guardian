@@ -302,6 +302,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_autofill_service:
+    dependency: "direct main"
+    description:
+      name: flutter_autofill_service
+      sha256: d4385563c46310a0a47191ab5c4b7414a48517a40ee2c74512c3ab119f28466b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.14.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -957,6 +965,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.2"
+  universal_platform:
+    dependency: transitive
+    description:
+      name: universal_platform
+      sha256: "64e16458a0ea9b99260ceb5467a214c1f298d647c659af1bff6d3bf82536b1ec"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   vector_math:
     dependency: transitive
     description:

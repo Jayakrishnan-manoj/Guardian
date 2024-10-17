@@ -13,9 +13,11 @@ class AuthProvider extends ChangeNotifier {
   Future<bool> AuthenticateUser() async {
     print("current auth status is $authState");
     try {
+      print("in the try block now");
       bool pass = await auth.authenticate(
           localizedReason: 'Authenticate to continue',
-          options: const AuthenticationOptions(biometricOnly: true));
+          options: const AuthenticationOptions(
+              biometricOnly: true, stickyAuth: true));
       if (pass) {
         _authStatus = authStatus.authenticated;
         print("user authenticated");
@@ -25,7 +27,8 @@ class AuthProvider extends ChangeNotifier {
         print("user not authenticated");
         return false;
       }
-    } on PlatformException {
+    } on PlatformException catch(e){
+      print(e.toString());
       return false;
     }
   }

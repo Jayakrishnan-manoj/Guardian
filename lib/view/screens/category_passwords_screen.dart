@@ -42,21 +42,8 @@ class CategoryPasswordsScreen extends StatelessWidget {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               final password = snapshot.data![index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          PasswordDetailsScreen(password: password),
-                    ),
-                  );
-                },
-                child: PasswordTile(
-                  title: password.title,
-                  username: password.username,
-                  imagePath: password.imagePath,
-                ),
+              return PasswordTile(
+                password: password,
               );
             },
           );
