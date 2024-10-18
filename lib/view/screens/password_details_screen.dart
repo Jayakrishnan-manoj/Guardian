@@ -10,6 +10,7 @@ import 'package:guardian/controller/category_provider.dart';
 import 'package:guardian/data/models/password_schema.dart';
 import 'package:guardian/data/repositories/password_repository.dart';
 import 'package:guardian/data/service/database_service.dart';
+import 'package:guardian/helpers/custom_dialog.dart';
 import 'package:guardian/helpers/custom_toast.dart';
 import 'package:guardian/services/encryption_service.dart';
 import 'package:guardian/view/constants/colors.dart';
@@ -51,14 +52,18 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
   @override
   void initState() {
     super.initState();
+    print("the path is ${widget.password.imagePath}");
+
     connectedAccount = widget.password.connectedAccount ?? "";
+
     usernameController.text = widget.password.username!;
     passwordController.text =
         EncryptionService().decryptPassword(widget.password.encryptedPassword);
     websiteController.text = widget.password.websiteAddress!;
     noteController.text = widget.password.note!;
     titleController.text = widget.password.title;
-    _passwordRepository = Provider.of<PasswordRepository>(context, listen: false);
+    _passwordRepository =
+        Provider.of<PasswordRepository>(context, listen: false);
   }
 
   @override
@@ -102,11 +107,14 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                   children: [
                     Center(
                         child: Hero(
-                          tag:widget.password.imagePath == null ? "password image_${widget.password.title}" : "password image_${widget.password.imagePath}",
-                          child: CircleAvatar(
-                                                radius: 40,
-                                                backgroundColor: AppColors.scaffoldBackgroundColor,
-                                                child: widget.password.imagePath != null || _image != null
+                      tag: widget.password.imagePath == null
+                          ? "password image_${widget.password.title}"
+                          : "password image_${widget.password.imagePath}",
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundColor: AppColors.scaffoldBackgroundColor,
+                        child: widget.password.imagePath != null ||
+                                _image != null
                             ? ClipOval(
                                 child: Stack(
                                   children: [
@@ -158,8 +166,8 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                                       icon: Icon(Icons.edit_outlined),
                                     ),
                                   ),
-                                              ),
-                        )),
+                      ),
+                    )),
                     Gap(20),
                     Center(
                         child: isReadOnly
@@ -251,19 +259,18 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                           ),
                           Gap(15),
                           isReadOnly
-                              ? widget.password.connectedAccount != null
+                              ? connectedAccount != ""
                                   ? Row(
                                       children: [
                                         Gap(12),
                                         Image.asset(
-                                          accountImagesMap[widget
-                                              .password.connectedAccount!]!,
+                                          accountImagesMap[connectedAccount]!,
                                           width: 20,
                                           height: 20,
                                         ),
                                         Gap(12),
                                         Text(
-                                          widget.password.connectedAccount!,
+                                          "${widget.password.connectedAccount}",
                                           style: TextStyle(
                                             color: Colors.white,
                                           ),
@@ -295,8 +302,7 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                                           },
                                           backgroundColor:
                                               AppColors.scaffoldBackgroundColor,
-                                          selectedColor:
-                                              AppColors.blueAppColor,
+                                          selectedColor: AppColors.blueAppColor,
                                         ),
                                       );
                                     }).toList(),
@@ -364,11 +370,20 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                     ),
                   ),
                   onPressed: isReadOnly
-                      ? () async {
-                          await _passwordRepository.deletePassword(widget.password);
+                      ? () async{
+                        showCustomDialog(context,() async{
+                          await _passwordRepository
+                              .deletePassword(widget.password);
+                          Navigator.of(context).pop();
                           Navigator.of(context).pop();
                           Toasts()
                               .showSuccessToast(context, "Password deleted!");
+                        });
+                          // await _passwordRepository
+                          //     .deletePassword(widget.password);
+                          // Navigator.of(context).pop();
+                          // Toasts()
+                          //     .showSuccessToast(context, "Password deleted!");
                         }
                       : () async {
                           await DatabaseService()
