@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -5,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:guardian/controller/auth_provider.dart';
 import 'package:guardian/controller/category_provider.dart';
 import 'package:guardian/data/service/database_service.dart';
+import 'package:guardian/services/autofill_service.dart';
 import 'package:guardian/services/encryption_service.dart';
 import 'package:guardian/view/constants/colors.dart';
 import 'package:guardian/view/screens/home_screen.dart';
@@ -24,12 +26,19 @@ GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    
+  );
+
+
   final AuthProvider authProvider = AuthProvider();
   //await authProvider.AuthenticateUser();
   final encryptionService = EncryptionService();
   await encryptionService.init();
   final databaseService = DatabaseService();
   await databaseService.db;
+  AutofillService(databaseService);
   final categoryProvider = CategoryProvider(databaseService);
   final passwordRepository =
       PasswordRepository(databaseService, categoryProvider);
@@ -65,9 +74,7 @@ class MyApp extends StatelessWidget {
         navigatorKey: navigatorKey,
         builder: FToastBuilder(),
         debugShowCheckedModeBanner: false,
-        home: authProvider.authState == authStatus.authenticated
-            ? HomeScreen()
-            : LandingScreen(),
+        home: LandingScreen(),
         title: 'Guardian',
         theme: ThemeData(
           scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,

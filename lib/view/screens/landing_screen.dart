@@ -51,20 +51,26 @@ class _LandingScreenState extends State<LandingScreen> {
                   try {
                     bool pass = await authProvider.AuthenticateUser();
                     if (pass) {
-                      String? userName = await passwordRepository.getSavedUser();
-                      if (userName != null && userName.isNotEmpty) {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
-                          ),
-                        );
-                      } else {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => OnboardingScreen(),
-                          ),
-                        );
-                      }
+                      final nextScreen = authProvider.handleAuthState();
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => nextScreen,
+                        ),
+                      );
+                      // String? userName = await passwordRepository.getSavedUser();
+                      // if (userName != null && userName.isNotEmpty) {
+                      //   Navigator.of(context).pushReplacement(
+                      //     MaterialPageRoute(
+                      //       builder: (context) => HomeScreen(),
+                      //     ),
+                      //   );
+                      // } else {
+                      //   Navigator.of(context).pushReplacement(
+                      //     MaterialPageRoute(
+                      //       builder: (context) => OnboardingScreen(),
+                      //     ),
+                      //   );
+                      // }
                       // passwordRepository.getSavedUser().then((name) {
                       //   if (name != '') {
                       //     Navigator.of(context).pushReplacement(

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "121907332883",
+    "project_id": "guardian-3fd1f",
+    "storage_bucket": "guardian-3fd1f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121907332883:android:baa8bdebb924b9cb663ce6",
+        "android_client_info": {
+          "package_name": "com.jayk.guardian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121907332883-6mtkhh9s5otqatri74alk14rofrj6v5f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jayk.guardian",
+            "certificate_hash": "7c74bd2781118499b4b094f4c32e826906a0fe0d"
+          }
+        },
+        {
+          "client_id": "121907332883-osicknibhhkns22l1icj3agr0kctdeui.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDb1OhPan3dw8fHdshRThDSERycGQgdb78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121907332883-osicknibhhkns22l1icj3agr0kctdeui.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,38 +1,43 @@
 import 'package:flutter/services.dart';
-import 'package:guardian/data/models/password_schema.dart';
-import 'package:guardian/services/encryption_service.dart';
+import 'package:isar/isar.dart';
+import '../data/models/password_schema.dart';
+import '../data/service/database_service.dart';
 
-// class AutofillService {
-//   static final AutofillService _instance = AutofillService._internal();
-//   factory AutofillService() => _instance;
+class AutofillService {
+  static const platform = MethodChannel('autofill_channel');
+  final DatabaseService _databaseService;
 
-//   AutofillService._internal();
+  AutofillService(this._databaseService) {
+    _initializeMethodChannel();
+  }
 
-//   static const platform = MethodChannel("autofill_channel");
-//   final EncryptionService _encryptionService = EncryptionService();
+  void _initializeMethodChannel() {
+    platform.setMethodCallHandler((call) async {
+      switch (call.method) {
+        case 'getPasswordsForPackage':
+          final packageName = call.arguments as String;
+          return await _getPasswordsForPackage(packageName);
+        default:
+          throw PlatformException(
+            code: 'NOT_IMPLEMENTED',
+            message: 'Method not implemented',
+          );
+      }
+    });
+  }
 
-//   Future<void> init() async {
-//     await _encryptionService.init();
-//   }
+  Future<List<Map<String, dynamic>>> _getPasswordsForPackage(String packageName) async {
+    final isar = await _databaseService.db;
+    
+    // Query passwords that match the package name (website address)
+    final passwords = await isar.passwords
+        .filter()
+        .websiteAddressContains(packageName, caseSensitive: false)
+        .or()
+        .titleContains(packageName, caseSensitive: false)
+        .findAll();
 
-//   Future<List<Password>> getPasswordsForPackage(String packageName) async {
-//     final List result =
-//         await platform.invokeMethod('getPasswordsForPackage', packageName);
-//     return result
-//         .map((item) => _decryptPassword(Password.fromMap(item)))
-//         .toList();
-//   }
-
-//   Password _decryptPassword(Password password) {
-//     return password.copyWith(
-//         encryptedPassword:
-//             _encryptionService.decryptPassword(password.encryptedPassword));
-//   }
-
-//   Future<void> savePassword(Password password) async {
-//     final encryptedPassword = password.copyWith(
-//         encryptedPassword:
-//             _encryptionService.encryptPassword(password.encryptedPassword));
-//     await platform.invokeMethod('savePassword', encryptedPassword.toMap());
-//   }
-// }
+    // Convert passwords to maps that can be sent through the platform channel
+    return passwords.map((password) => password.toMap()).toList();
+  }
+}
