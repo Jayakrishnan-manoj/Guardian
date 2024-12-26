@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:guardian/controller/auth_provider.dart';
+import 'package:guardian/data/repositories/password_repository.dart';
 import 'package:guardian/view/constants/colors.dart';
 import 'package:guardian/view/screens/home_screen.dart';
+import 'package:guardian/view/screens/onboarding_screen.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,6 +19,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final passwordRepository =
+        Provider.of<PasswordRepository>(context, listen: false);
+
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -66,13 +72,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                       await AuthProvider()
                           .signInWithGoogle(context: context)
-                          .then((result) {
+                          .then((result) async {
                         if (result != null) {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
-                            ),
-                          );
+                          String? userName =
+                              await passwordRepository.getSavedUser();
+                          if (userName != null && userName.isNotEmpty) {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => HomeScreen(),
+                              ),
+                            );
+                          } else {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => OnboardingScreen(),
+                              ),
+                            );
+                          }
                         }
                       });
                       setState(() {

@@ -136,6 +136,23 @@ class DatabaseService {
     });
   }
 
+  Future<void> updateUserName(int userId, String newName) async {
+  final isar = await db;
+  
+  await isar.writeTxn(() async {
+    // Get the user from the database
+    final user = await isar.userSchemas.get(userId);
+    
+    if (user != null) {
+      // Update the name
+      user.name = newName;
+      
+      // Save the updated user back to the database
+      await isar.userSchemas.put(user);
+    }
+  });
+}
+
   Future<String?> getUser() async {
   final isar = await db;
   final user = await isar.userSchemas.where().findFirst();

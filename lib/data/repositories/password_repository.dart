@@ -48,6 +48,10 @@ class PasswordRepository {
     _databaseService.saveUser(user);
   }
 
+  Future<void> updateUserName(int userId, String newName) async {
+    _databaseService.updateUserName(userId, newName);
+  }
+
   Future<void> updatePassword(
     Password password, {
     required String username,

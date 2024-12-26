@@ -24,8 +24,7 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final passwordRepository =
-        Provider.of<PasswordRepository>(context, listen: false);
+    
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -52,6 +51,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     bool pass = await authProvider.AuthenticateUser();
                     if (pass) {
                       final nextScreen = authProvider.handleAuthState();
+
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => nextScreen,

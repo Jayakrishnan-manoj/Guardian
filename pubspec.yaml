@@ -30,6 +30,9 @@ environment:
 dependencies:
   animated_text_kit: ^4.2.2
   avatar_glow: ^2.0.2
+  bip39: ^1.0.6
+  crypto: ^3.0.6
+  cryptography: ^2.7.0
   cupertino_icons: ^1.0.2
   dropdown_button2: ^2.3.9
   encrypt: ^5.0.3
@@ -37,7 +40,6 @@ dependencies:
   firebase_core: ^3.8.0
   flutter:
     sdk: flutter
-  #flutter_autofill_service: ^0.14.0
   flutter_secure_storage: ^9.2.2
   fluttertoast: ^8.2.8
   font_awesome_flutter: ^10.6.0

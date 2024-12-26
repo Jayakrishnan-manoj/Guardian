@@ -86,6 +86,11 @@ class AuthProvider extends ChangeNotifier {
     return user;
   }
 
+  String? getProfilePic() {
+    final user = FirebaseAuth.instance.currentUser;
+    return user!.photoURL;
+  }
+
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }

@@ -370,15 +370,84 @@ class _PasswordDetailsScreenState extends State<PasswordDetailsScreen> {
                     ),
                   ),
                   onPressed: isReadOnly
-                      ? () async{
-                        showCustomDialog(context,() async{
-                          await _passwordRepository
-                              .deletePassword(widget.password);
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
-                          Toasts()
-                              .showSuccessToast(context, "Password deleted!");
-                        });
+                      ? () async {
+                          showCustomDialog(
+                            context,
+                            "Delete Password?",
+                            Text(
+                              "Are you sure you want to delete the password? This action cannot be undone.",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: 50,
+                                      child: ElevatedButton(
+                                        style: const ButtonStyle(
+                                          elevation: WidgetStatePropertyAll(0),
+                                          shape: WidgetStatePropertyAll(
+                                            StadiumBorder(),
+                                          ),
+                                          backgroundColor:
+                                              WidgetStatePropertyAll(
+                                            Colors.white,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text(
+                                          "Cancel",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Gap(10),
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: 50,
+                                      child: ElevatedButton(
+                                        style: const ButtonStyle(
+                                          elevation: WidgetStatePropertyAll(0),
+                                          shape: WidgetStatePropertyAll(
+                                            StadiumBorder(),
+                                          ),
+                                          backgroundColor:
+                                              WidgetStatePropertyAll(
+                                            Colors.red,
+                                          ),
+                                        ),
+                                        onPressed: () async {
+                                          await _passwordRepository
+                                              .deletePassword(widget.password);
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                          Toasts().showSuccessToast(
+                                              context, "Password deleted!");
+                                        },
+                                        child: const Text(
+                                          "Delete",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
                           // await _passwordRepository
                           //     .deletePassword(widget.password);
                           // Navigator.of(context).pop();
